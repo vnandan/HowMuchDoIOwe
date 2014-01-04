@@ -37,14 +37,14 @@
 		var tr=	$('<tr/>').append("<th></th>");
 		$("#dataTable").append(tr);
 		//tr.append("<th></th>");
-	for(i=0;i<n;i++)
+	for(i=1;i<=n;i++)
 	{
-		tr.append("<th contenteditable id=\'thtop"+(i+1)+"\'>"+c+"</th>");
+		tr.append("<th contenteditable id=\'thtop"+i+"\'>"+c+"</th>");
 		c=String.charCodeAt(c);c++;
 		c=String.fromCharCode(c);
 	}
 	c='A';
-	count=0;count2=0;
+	count=0;count2=1;
 	for(i=0;i<n;i++)
 	{
 	tr = $('<tr/>');
@@ -58,16 +58,18 @@
 	{
 		if(i==j)tr.append("<td width='3'><input value='0' disabled = 'disabled' type='text' size='3' id=\'input"+count+"\'/></td>");
 		else
-		tr.append("<td><input type='text' size='3' value='0' id=\'"+count+"\'/></td>");
+		tr.append("<td><input type='text' size='3' value='0' id=\'input"+count+"\'/></td>");
 	}
 	$("#addPayment").show();
 	$("#calc").show();
 	}
 	
 		$('[id^="thtop"]').on('keyup keypress blur',function(){
-			for(i=0;i<n;i++)
+			for(i=1;i<=n;i++)
 			{
-			$("#thside"+i).html($("#thtop"+(i+1)).html());
+			$("#thside"+i).html($("#thtop"+i).html());
+			$("#opt"+i).html($("#thtop"+i).html()).prop('value',$("#thtop"+i).html());
+			
 			}
 			});
 		count=1;
@@ -78,14 +80,16 @@
 			$("#forPerson").append(cb);
 			count++;
 			}
-		});	
+		});
+		count=1;
 	$("input:checkbox").prop("checked",true);
 		$('#dataTable tbody tr th').each(function()
 		{
 			if($(this).html())
 			{
-			op=$('<option value="'+$(this).html()+'">'+$(this).html()+'</option>');
+			op=$('<option id="opt'+count+'" value="'+$(this).html()+'">'+$(this).html()+'</option>');
 			$("#paidBy").append(op);
+			count++;
 			}
 		});
 	
@@ -98,7 +102,7 @@
 		{
 			for(j=0;j<n;j++)
 			{
-				arr[i][j]=parseFloat($("#"+count+"").val());
+				arr[i][j]=parseFloat($("#input"+count).val());
 				count++;
 				//alert(arr[i][j]+1);
 			}
@@ -173,7 +177,7 @@
 	
 	<br><br><br><div id="addPayment" style="display: none;"><select id="paidBy">
 	</select>
-	paid <input type="text" id="paidAmount" /> for <div id="forPerson"></div>
+	paid <input type="text" id="paidAmount" size="5"/> for <div id="forPerson"></div>
 	 <button id="addSum">Add</button></div>
 	
 	<div id="data"></div>
@@ -189,7 +193,7 @@
 			for(j=0;j<n;j++)
 			{
 				//$("#data").append(arr[i][j]);
-				$("#"+count+"").val(arr[i][j]);
+				$("#input"+count+"").val(arr[i][j]);
 				count++;
 			}
 		}
