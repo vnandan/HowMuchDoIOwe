@@ -1,11 +1,18 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+	<style>
+		#forPerson input{
+			
+			
+		}
+	</style>
 	<script src="jquery.js"></script>
 	<script>
 	var arr = new Array();
 	n=0;
 	$(document).ready(function(){
+		
 	$("#setNo").click(function()
 	{
 		$("#dataTable").html("");
@@ -57,17 +64,32 @@
 	$("#calc").show();
 	}
 	
-	thtop_arr= ['#thtop1','#thtop2','#thtop3'];
-	thside_arr= ['#thside0','#thside1','#thside2'];
-	
 		$('[id^="thtop"]').on('keyup keypress blur',function(){
 			for(i=0;i<n;i++)
 			{
-			$(thside_arr[i]).html($(thtop_arr[i]).html());
+			$("#thside"+i).html($("#thtop"+(i+1)).html());
 			}
 			});
-		
-	});// click function ends
+		count=1;
+		$('#dataTable tbody tr th').each(function() {
+			if($(this).html())
+			{
+			cb = $('<input type="checkbox" id="check'+count+'" name="for" value="'+$(this).html()+'">'+$(this).html()+'<br/>');
+			$("#forPerson").append(cb);
+			count++;
+			}
+		});	
+	$("input:checkbox").prop("checked",true);
+		$('#dataTable tbody tr th').each(function()
+		{
+			if($(this).html())
+			{
+			op=$('<option value="'+$(this).html()+'">'+$(this).html()+'</option>');
+			$("#paidBy").append(op);
+			}
+		});
+	
+	});// starting click function ends
 	
 	$("#calc").click(function(){
 		
@@ -102,7 +124,9 @@
 	
 	
 	$("#addSum").click(function(){
+		//if(!checkbox()){return;}
 		count = 0;
+		checked = new Array();
 		i=-1;
 		paidBy = $("#paidBy").val();
 		paidAmount = parseFloat($("#paidAmount").val());
@@ -115,20 +139,31 @@
 		{count++;}
 		});
 	i--;
-	amount=paidAmount/n;
-	for(j=0;j<n;j++)
+	//alert(i);
+	count=0;
+	$('input[type=checkbox]').each(function()
 	{
-		if(i==j)continue;
-		arr[i][j]+=amount;
+		if($(this).prop('checked')==true)
+		{
+			checked.push(count);
+			//alert(count);
+		}
+		count++;
+	});
+	
+	amount=paidAmount/checked.length;
+	for(j=0;j<checked.length;j++)
+	{
+		if(i==checked[j])continue;
+		arr[i][checked[j]]+=amount;
+		//alert(checked[j]);
 	}
 	
 	updateTable();
 	if(i==-1){exit;}
 
 	});
-	
-	
-	
+	$('input[type=checkbox]').on('change',function(){checkbox();})
 	}); //document ready ends
 	</script>
 </head>
@@ -136,12 +171,14 @@
 	<input id="no" type="text" placeholder="No. of dummies."/>
 	<button id="setNo">Start!</button>
 	
+	<br><br><br><div id="addPayment" style="display: none;"><select id="paidBy">
+	</select>
+	paid <input type="text" id="paidAmount" /> for <div id="forPerson"></div>
+	 <button id="addSum">Add</button></div>
+	
 	<div id="data"></div>
 	<table id="dataTable"></table>
 	<button id="calc" style="display: none;">Calculate!</button>
-	
-	<br><br><br><div id="addPayment" style="display: none;"><input type="text" id="paidBy"/> paid <input type="text" id="paidAmount" /> for everyone. <button id="addSum">Add</button></div>
-
 </body>
 <script>
 	function updateTable()
@@ -157,6 +194,19 @@
 			}
 		}
 	}
+	function checkbox()
+	{
+		flag=0;
+		$('input[type=checkbox]').each(function ()
+		{
+			if($(this).prop('checked')==true)
+			flag=1;
+		});
+	if(flag==0)
+	{
+		alert('You must select at least 1 person.');
+		return false;
+	}
+	}
 </script>
-
 </html>
