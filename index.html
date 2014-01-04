@@ -32,23 +32,24 @@
 		//tr.append("<th></th>");
 	for(i=0;i<n;i++)
 	{
-		tr.append("<th>"+c+"</th>");
+		tr.append("<th contenteditable id=\'thtop"+(i+1)+"\'>"+c+"</th>");
 		c=String.charCodeAt(c);c++;
 		c=String.fromCharCode(c);
 	}
 	c='A';
-	count=0;
+	count=0;count2=0;
 	for(i=0;i<n;i++)
 	{
 	tr = $('<tr/>');
 	$("#dataTable").append(tr);
-	tr.append("<td>"+c+"</td>");
+	tr.append("<td id=\'thside"+count2+"\'>"+c+"</td>");
 	c=String.charCodeAt(c);c++;
 	c=String.fromCharCode(c);
+	count2++;
 	
 	for(j=0;j<n;j++,count++)
 	{
-		if(i==j)tr.append("<td width='3'><input value='0' disabled = 'disabled' type='text' size='3' id=\'"+count+"\'/></td>");
+		if(i==j)tr.append("<td width='3'><input value='0' disabled = 'disabled' type='text' size='3' id=\'input"+count+"\'/></td>");
 		else
 		tr.append("<td><input type='text' size='3' value='0' id=\'"+count+"\'/></td>");
 	}
