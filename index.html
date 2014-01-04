@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<script src="jquery.js"></script>
+	<script>
+	var arr = new Array();
+	n=0;
+	$(document).ready(function(){
+	$("#setNo").click(function()
+	{
+		n=$("#no").val();
+		
+		for(j=0;j<n;j++)
+		{
+			arr[j]= new Array();
+		}
+
+	
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<n;j++)
+		{
+			arr[i][j]=0;
+			//$("#data").append("0");	
+		}
+		//$("#data").append("<br>");
+	}
+		c='A';
+		var tr=	$('<tr/>').append("<th></th>");
+		$("#dataTable").append(tr);
+		//tr.append("<th></th>");
+	for(i=0;i<n;i++)
+	{
+		tr.append("<th>"+c+"</th>");
+		c=String.charCodeAt(c);c++;
+		c=String.fromCharCode(c);
+	}
+	c='A';
+	count=0;
+	for(i=0;i<n;i++)
+	{
+	tr = $('<tr/>');
+	$("#dataTable").append(tr);
+	tr.append("<td>"+c+"</td>");
+	c=String.charCodeAt(c);c++;
+	c=String.fromCharCode(c);
+	
+	for(j=0;j<n;j++,count++)
+	{
+		if(i==j)tr.append("<td width='3'><input value='0' disabled = 'disabled' type='text' size='3' id=\'"+count+"\'/></td>");
+		else
+		tr.append("<td><input type='text' size='3' value='0' id=\'"+count+"\'/></td>");
+	}
+	$("#addPayment").show();
+	$("#calc").show();
+	}
+		
+	});// click function ends
+	
+	$("#calc").click(function(){
+		
+		count=0;
+		for(i=0;i<n;i++)
+		{
+			for(j=0;j<n;j++)
+			{
+				arr[i][j]=parseFloat($("#"+count+"").val());
+				count++;
+				//alert(arr[i][j]+1);
+			}
+		}
+				
+		for(i=0;i<n/2;i++)
+		{
+		for(j=0;j<n;j++)
+		{
+			if(i==j)continue;
+			
+			if(arr[i][j]>arr[j][i]){arr[i][j]-=arr[j][i];arr[j][i]=0;}
+			else
+			{arr[j][i]-=arr[i][j];arr[i][j]=0;}
+			
+		}
+		}
+		
+		updateTable();
+		
+		}); //end calc calculation of subtraction mirror items in arr[]
+	
+	
+	
+	$("#addSum").click(function(){
+		count = 0;
+		i=-1;
+		paidBy = $("#paidBy").val();
+		paidAmount = parseFloat($("#paidAmount").val());
+	$('#dataTable tbody tr th').each(function() {
+		if($(this).html()===paidBy)
+		{
+			i=count;
+		}
+		else
+		{count++;}
+		});
+	i--;
+	amount=paidAmount/n;
+	for(j=0;j<n;j++)
+	{
+		if(i==j)continue;
+		arr[i][j]+=amount;
+	}
+	
+	updateTable();
+	if(i==-1){exit;}
+
+	});
+	
+	}); //document ready ends
+	</script>
+</head>
+<body>
+	<input id="no" type="text" placeholder="No. of dummies."/>
+	<button id="setNo">Start!</button>
+	
+	<div id="data"></div>
+	<table id="dataTable"></table>
+	<button id="calc" style="display: none;">Calculate!</button>
+	
+	<br><br><br><div id="addPayment" style="display: none;"><input type="text" id="paidBy"/> paid <input type="text" id="paidAmount" /> for everyone. <button id="addSum">Add</button></div>
+
+</body>
+<script>
+	function updateTable()
+	{
+		count=0;
+		for(i=0;i<n;i++)
+		{
+			for(j=0;j<n;j++)
+			{
+				//$("#data").append(arr[i][j]);
+				$("#"+count+"").val(arr[i][j]);
+				count++;
+			}
+		}
+	}
+</script>
+
+</html>
