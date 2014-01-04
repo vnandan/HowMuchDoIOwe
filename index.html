@@ -63,9 +63,9 @@
 	
 	for(j=0;j<n;j++,count++)
 	{
-		if(i==j)tr.append("<td width='3'><input value='0' disabled = 'disabled' type='text' size='3' id=\'input"+count+"\'/></td>");
+		if(i==j)tr.append("<td width='3'><input value='0' disabled = 'disabled' type='text' size='3' id=\'input"+count+"\'></td>");
 		else
-		tr.append("<td><input type='text' size='3' value='0' id=\'input"+count+"\'/></td>");
+		tr.append("<td><input type='text' size='3' value='0' id=\'input"+count+"\'></td>");
 	}
 	$("#addPayment").show();
 	$("#calc").show();
@@ -76,14 +76,15 @@
 			{
 			$("#thside"+i).html($("#thtop"+i).html());
 			$("#opt"+i).html($("#thtop"+i).html()).prop('value',$("#thtop"+i).html());
-			
+			$("#check"+i).next('label').text($("#thtop"+i).html()).prop('value',$("#thtop"+i).html());
+			//alert($("#check"+i).html());
 			}
 			});
 		count=1;
 		$('#dataTable tbody tr th').each(function() {
 			if($(this).html())
 			{
-			cb = $('<input type="checkbox" id="check'+count+'" name="for" value="'+$(this).html()+'">'+$(this).html()+'<br/>');
+			cb = $('<input type="checkbox" id="check'+count+'" name="for" value="'+$(this).html()+'"/><label>'+$(this).html()+'</label><br/>');
 			$("#forPerson").append(cb);
 			count++;
 			}
@@ -141,7 +142,7 @@
 		i=-1;
 		paidBy = $("#paidBy").val();
 		paidAmount = parseFloat($("#paidAmount").val());
-	$('#dataTable tbody tr th').each(function() {
+		$('#dataTable tbody tr th').each(function() {
 		if($(this).html()===paidBy)
 		{
 			i=count;
@@ -181,7 +182,7 @@
 <body>
 	<div id="wrapper">
 	<h1>How Much Do I Owe?*</h1>
-	<h5>Find out who owes whom after your trip.</h5>
+	<h5>*If any...</h5>
 	<input id="no" type="text" placeholder="No. of dummies."/>
 	<button id="setNo">Start!</button>
 	
