@@ -2,9 +2,16 @@
 <html>
 <head>
 	<style>
-		#forPerson input{
-			
-			
+		body{
+			width: 100%;
+		}
+		#wrapper
+		{
+			border: solid 1px;
+			width: 50%;
+			height: 100%;
+			text-align: center;
+			margin: 0 auto;
 		}
 	</style>
 	<script src="jquery.js"></script>
@@ -172,6 +179,8 @@
 	</script>
 </head>
 <body>
+	<div id="wrapper">
+	<h1>How Much Do I Owe?*</h1>
 	<input id="no" type="text" placeholder="No. of dummies."/>
 	<button id="setNo">Start!</button>
 	
@@ -183,6 +192,7 @@
 	<div id="data"></div>
 	<table id="dataTable"></table>
 	<button id="calc" style="display: none;">Calculate!</button>
+</div>
 </body>
 <script>
 	function updateTable()
