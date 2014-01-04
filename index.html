@@ -56,6 +56,16 @@
 	$("#addPayment").show();
 	$("#calc").show();
 	}
+	
+	thtop_arr= ['#thtop1','#thtop2','#thtop3'];
+	thside_arr= ['#thside0','#thside1','#thside2'];
+	
+		$('[id^="thtop"]').on('keyup keypress blur',function(){
+			for(i=0;i<n;i++)
+			{
+			$(thside_arr[i]).html($(thtop_arr[i]).html());
+			}
+			});
 		
 	});// click function ends
 	
@@ -116,6 +126,8 @@
 	if(i==-1){exit;}
 
 	});
+	
+	
 	
 	}); //document ready ends
 	</script>
