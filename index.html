@@ -23,6 +23,8 @@
 	$("#setNo").click(function()
 	{
 		$("#dataTable").html("");
+		$("#paidBy").html("");
+		$("#forPerson").html('');
 		n=$("#no").val();
 		
 		for(j=0;j<n;j++)
@@ -65,7 +67,7 @@
 	{
 		if(i==j)tr.append("<td width='3'><input value='0' disabled = 'disabled' type='text' size='3' id=\'input"+count+"\'></td>");
 		else
-		tr.append("<td><input type='text' size='3' value='0' id=\'input"+count+"\'></td>");
+		tr.append("<td><input type='text' disabled = 'disabled' size='3' value='0' id=\'input"+count+"\'></td>");
 	}
 	$("#addPayment").show();
 	$("#calc").show();
@@ -76,7 +78,7 @@
 			{
 			$("#thside"+i).html($("#thtop"+i).html());
 			$("#opt"+i).html($("#thtop"+i).html()).prop('value',$("#thtop"+i).html());
-			$("#check"+i).next('label').text($("#thtop"+i).html()).prop('value',$("#thtop"+i).html());
+			$("#check"+i).next('label').html($("#thtop"+i).html()).prop('value',$("#thtop"+i).html());
 			//alert($("#check"+i).html());
 			}
 			});
@@ -189,7 +191,7 @@
 	<br><br><br><div id="addPayment" style="display: none;"><select id="paidBy">
 	</select>
 	paid <input type="text" id="paidAmount" size="5"/> for <div id="forPerson"></div>
-	 <button id="addSum">Add</button></div>
+	 <button id="addSum">Add</button><br></div>
 	
 	<div id="data"></div>
 	<table id="dataTable"></table>
